@@ -10,8 +10,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "migrate": "node scripts/migrate.js",
+    "migrate:ci": "bash scripts/migrate-ci.sh",
     "deploy": "bash scripts/deploy.sh",
-    "vercel-build": "node scripts/migrate.js && vite build"
+    "vercel-build": "vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
