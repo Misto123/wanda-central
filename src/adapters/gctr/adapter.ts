@@ -87,7 +87,7 @@ export class GCTRAdapter implements ExternalToolAdapter {
   }
 
   async createJob(config: JobConfig): Promise<string> {
-    const input = config.input as CreateCampaignRequest;
+    const input = config.input as unknown as CreateCampaignRequest;
     
     // Validate
     if (!input.name || input.name.length < 1 || input.name.length > 200) {

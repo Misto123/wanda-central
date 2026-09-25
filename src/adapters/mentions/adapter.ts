@@ -54,7 +54,7 @@ export class MentionsAdapter implements ExternalToolAdapter {
     return jobId;
   }
 
-  async getJobStatus(jobId: string): Promise<JobStatusResponse> {
+  async getJobStatus(_jobId: string): Promise<JobStatusResponse> {
     // TODO: Implement actual status check
     
     // Stub response
@@ -65,7 +65,7 @@ export class MentionsAdapter implements ExternalToolAdapter {
     };
   }
 
-  async getResult(jobId: string): Promise<JobResult> {
+  async getResult(_jobId: string): Promise<JobResult> {
     // TODO: Implement actual result retrieval
     
     // Stub response
