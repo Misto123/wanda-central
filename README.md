@@ -2,149 +2,182 @@
 
 **Central SEO operations, experimentation, orchestration, monitoring and insights platform**
 
-Wanda Central is the brain and orchestration layer that manages multiple SEO projects and coordinates existing SEO tools (GCTR, Mentions, GSC, etc.) without rebuilding them.
+## 🌐 Live Application
 
-## Architecture Principle
+**Production:** https://wanda-central.vercel.app
 
-```
-Wanda Central = Brain + Orchestration + Queue + Monitoring + Logging + Insights
-Existing Tools = Execution Engines
-```
-
-**Do NOT unnecessarily rebuild existing tools.** Wanda integrates and orchestrates them.
-
-## Tech Stack
-
-- **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
-- **Backend:** TypeScript + Node.js
-- **Database:** PostgreSQL / Supabase
-- **Queue:** To be implemented (BullMQ or similar)
-- **Theme:** Light mode, modern shadcn-inspired operations dashboard
-
-## Current Status
-
-✅ Frontend foundation with dashboard UI  
-✅ Project structure and configuration  
-⏳ Backend API routes  
-⏳ Database schema  
-⏳ GCTR adapter (Unified Browser API)  
-⏳ Mentions adapter  
-⏳ Job queue system  
-⏳ Authentication  
-
-## Quick Start
+## ⚡ Quick Start
 
 ```bash
+# Clone repository
+git clone <your-repo-url>
+cd wanda-central
+
 # Install dependencies
 npm install
 
-# Start development server
+# Set up environment
+cp .env.example .env
+# Add your credentials
+
+# Run locally
 npm run dev
 
 # Build for production
 npm run build
-
-# Type check
-npm run typecheck
 ```
 
-## Project Structure
+## 🚀 Fully Automated Deployment
+
+This project uses **GitHub Actions** for zero-touch deployment:
+
+1. **Push to GitHub** → Triggers automatic workflow
+2. **Database migration** → Runs automatically via psql
+3. **Build & Deploy** → Deploys to Vercel
+4. **Done!** → Live in ~2 minutes
+
+See [AUTOMATION.md](./AUTOMATION.md) for complete setup guide.
+
+## 🗄️ Database
+
+- **Provider:** Supabase (PostgreSQL)
+- **Migrations:** `supabase/migrations/`
+- **Automation:** GitHub Actions + psql
+
+**Manual migration** (if needed):
+```bash
+# Via Supabase Dashboard
+https://supabase.com/dashboard/project/mouycpybovknqrhknoiv/sql/new
+
+# Or via command line
+export DATABASE_URL="postgresql://..."
+npm run migrate:ci
+```
+
+## 🏗️ Architecture
 
 ```
-src/
-  App.tsx              # Main dashboard component
-  main.tsx             # App entry point
-  index.css            # Wanda visual system
-  lib/                 # Utilities and helpers
-  adapters/            # External tool adapters
-    gctr/              # GCTR adapter
-    mentions/          # Mentions adapter
-  types/               # TypeScript interfaces
+Wanda Central (Brain)
+├── Projects Management
+├── Job Queue & Orchestration
+├── Integration Health Monitoring
+├── Structured Logging
+└── Insights Generation
+
+External Tools (Execution Engines)
+├── GCTR (via Unified Browser API)
+├── Mentions (Brand monitoring)
+├── GSC (Google Search Console)
+└── Future integrations...
 ```
 
-## Core Entities
+## 📋 Features
 
-```
-PROJECT → MODULE → JOB → EXECUTION → RESULT → LOG → INSIGHT → TASK
-```
-
-Every action is traceable: what happened, to which project, using which tool, when, with what input, what was the result, and what happens next.
-
-## Features
-
-### Dashboard
-- Portfolio metrics (active projects, job success rate, errors)
-- Live queue visualization with progress bars
+### ✅ Implemented
+- Modern operations dashboard (light theme)
+- Project portfolio management
+- Live job queue visualization
 - Integration health monitoring
-- Project portfolio overview
-- Recent insights panel
-- Traceable activity log
+- Metrics overview
+- Activity tracking
+- GCTR adapter (Unified Browser API)
+- Mentions adapter (stub)
+- Complete database schema
+- Automated deployments
 
-### Projects (Planned)
-- Create and manage SEO projects
-- Connect websites
-- Enable/disable tools per project
-- Configure integration credentials
-- View project activity and health
+### 🔜 Coming Soon
+- Job queue workers
+- Real-time updates
+- Authentication
+- API routes
+- Structured logging
+- Insights generation
+- Task management
+- Trello integration
 
-### Job Queue (Planned)
-- Queue jobs from API requests
-- Execute via background workers
-- Track status, progress, and results
-- Retry with exponential backoff
-- Schedule recurring jobs
+## 🛠️ Tech Stack
 
-### Adapters (Planned)
-- **GCTR Adapter:** Unified Browser API integration
-- **Mentions Adapter:** Brand monitoring integration
-- Future: GSC, Analytics, Trello, Keyword tools
+**Frontend**
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
 
-### Logging (Planned)
-- Structured event logging
-- Project/tool/job filtering
-- Severity levels (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-- Audit trail for user actions
+**Backend**
+- Node.js
+- TypeScript
+- PostgreSQL/Supabase
 
-### Insights (Planned)
-- Data-driven observations
-- Pattern detection
-- Cross-project analysis
-- Traceable to source jobs/experiments
+**Deployment**
+- Vercel (frontend)
+- GitHub Actions (CI/CD)
+- Supabase (database)
 
-## Integration Pattern
+## 📝 Scripts
 
-All external tools follow a consistent adapter interface:
-
-```typescript
-interface ExternalToolAdapter {
-  connect(): Promise<void>;
-  testConnection(): Promise<boolean>;
-  createJob(config: JobConfig): Promise<string>;
-  getJobStatus(jobId: string): Promise<JobStatus>;
-  getResult(jobId: string): Promise<Result>;
-  cancelJob(jobId: string): Promise<void>;
-  healthCheck(): Promise<HealthStatus>;
-}
+```bash
+npm run dev          # Start dev server
+npm run build        # Production build
+npm run migrate      # Check database status
+npm run migrate:ci   # Run migrations (CI/CD)
+npm run deploy       # Full deployment script
 ```
 
-## Next Steps
+## 🔐 Environment Variables
 
-1. Implement database schema (projects, jobs, logs, integrations)
-2. Build API routes for project and job management
-3. Create GCTR adapter with Unified Browser API
-4. Implement job queue with background workers
-5. Add authentication and authorization
-6. Build project management UI
-7. Create Mentions adapter
-8. Implement structured logging system
+Required for deployment:
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `DATABASE_URL`
+- `GCTR_API_KEY` (optional)
+- `MENTIONS_API_KEY` (optional)
 
-## Development Notes
+## 📚 Documentation
 
-- Light theme only (as specified)
-- Clean modern operations layout
-- Responsive mobile-first design
-- No dark mode toggle needed
+- [AUTOMATION.md](./AUTOMATION.md) - Automated deployment guide
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Manual deployment steps
+- [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) - Database setup guide
 
-## License
+## 🎯 Core Principle
+
+**Wanda Central is the brain. External tools are execution engines.**
+
+Don't rebuild existing tools. Integrate and orchestrate them.
+
+## 📂 Project Structure
+
+```
+wanda-central/
+├── src/
+│   ├── App.tsx              # Dashboard UI
+│   ├── types/               # TypeScript types
+│   └── adapters/            # External tool adapters
+├── supabase/
+│   ├── config.toml          # Supabase config
+│   └── migrations/          # Database migrations
+├── scripts/
+│   ├── migrate.js           # Migration helper
+│   └── migrate-ci.sh        # CI/CD migration
+├── .github/
+│   └── workflows/           # GitHub Actions
+└── [config files]
+```
+
+## 🤝 Contributing
+
+This project is designed for easy iteration by both humans and AI coding agents.
+
+Code style:
+- TypeScript strict mode
+- Small focused modules
+- Adapter pattern for integrations
+- Clean separation of concerns
+
+## 📄 License
 
 MIT
+
+---
+
+**Built with ❤️ for SEO operations at scale**
