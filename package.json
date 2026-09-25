@@ -8,9 +8,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "migrate": "node scripts/migrate.js",
+    "deploy": "bash scripts/deploy.sh",
+    "vercel-build": "node scripts/migrate.js && vite build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
