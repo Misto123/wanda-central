@@ -251,3 +251,5 @@ export default function App() {
     </div>
   );
 }
+
+// Content Creator integration coming soon
