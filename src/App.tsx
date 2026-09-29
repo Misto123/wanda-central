@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import ImportWizard from './components/ImportWizard';
 
-type IconName = 'grid' | 'layers' | 'key' | 'flask' | 'queue' | 'check' | 'spark' | 'file' | 'plug' | 'settings' | 'search' | 'bell' | 'plus' | 'arrow' | 'more';
+type IconName = 'grid' | 'layers' | 'key' | 'flask' | 'queue' | 'check' | 'spark' | 'file' | 'plug' | 'settings' | 'search' | 'bell' | 'plus' | 'arrow' | 'more' | 'upload';
 
 const icons: Record<IconName, string> = {
   grid: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',
@@ -18,6 +19,7 @@ const icons: Record<IconName, string> = {
   plus: 'M12 5v14M5 12h14',
   arrow: 'M5 12h14m-6-6 6 6-6 6',
   more: 'M5 12h.01M12 12h.01M19 12h.01',
+  upload: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m14-7-5-5-5 5m5-5v12',
 };
 
 function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
@@ -25,9 +27,10 @@ function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
 }
 
 const navigation: Array<{ label: string; icon: IconName }> = [
-  { label: 'Dashboard', icon: 'grid' }, { label: 'Projects', icon: 'layers' }, { label: 'Keywords', icon: 'key' },
-  { label: 'Experiments', icon: 'flask' }, { label: 'Jobs / Queue', icon: 'queue' }, { label: 'Tasks', icon: 'check' },
-  { label: 'Insights', icon: 'spark' }, { label: 'Logs', icon: 'file' }, { label: 'Integrations', icon: 'plug' },
+  { label: 'Dashboard', icon: 'grid' },
+  { label: 'Projects', icon: 'layers' },
+  { label: 'Jobs', icon: 'queue' },
+  { label: 'Integrations', icon: 'plug' },
 ];
 
 const jobs = [
@@ -48,13 +51,8 @@ function StatusDot({ tone = 'green' }: { tone?: 'green' | 'amber' | 'red' | 'blu
 
 export default function App() {
   const [active, setActive] = useState('Dashboard');
-  const [project, setProject] = useState('All projects');
-  const [showToast, setShowToast] = useState(false);
-
-  function launchJob() {
-    setShowToast(true);
-    window.setTimeout(() => setShowToast(false), 2400);
-  }
+  const [showImportWizard, setShowImportWizard] = useState(false);
+  const [showToast] = useState(false);
 
   return (
     <div className="wanda-app">
@@ -62,7 +60,7 @@ export default function App() {
         <div className="brand-lockup"><div className="brand-mark">W</div><div><strong>wanda</strong><span>central</span></div></div>
         <div className="workspace-switcher"><div className="workspace-avatar">WC</div><div><small>Workspace</small><strong>Wanda Operations</strong></div><span className="chevron">⌄</span></div>
         <div className="nav-label">Workspace</div>
-        <nav>{navigation.map((item) => <button key={item.label} className={`nav-item ${active === item.label ? 'active' : ''}`} onClick={() => setActive(item.label)}><Icon name={item.icon} size={17} /><span>{item.label}</span>{item.label === 'Jobs / Queue' && <b className="nav-count">3</b>}</button>)}</nav>
+        <nav>{navigation.map((item) => <button key={item.label} className={`nav-item ${active === item.label ? 'active' : ''}`} onClick={() => setActive(item.label)}><Icon name={item.icon} size={17} />              <span>{item.label}</span>{item.label === 'Jobs' && <b className="nav-count">1</b>}</button>)}</nav>
         <div className="sidebar-spacer" />
         <button className="nav-item"><Icon name="settings" size={17} /><span>Settings</span></button>
         <div className="sidebar-user"><div className="user-avatar">BR</div><div><strong>Bram Roos</strong><span>Owner</span></div><Icon name="more" size={18} /></div>
@@ -71,7 +69,7 @@ export default function App() {
       <main className="main-content">
         <header className="topbar"><div className="breadcrumbs"><span>Wanda Central</span><span>/</span><strong>{active}</strong></div><div className="top-actions"><button className="icon-button"><Icon name="search" /></button><button className="icon-button notification"><Icon name="bell" /><i /></button><div className="top-avatar">BR</div></div></header>
         <div className="page-wrap">
-          <section className="page-intro"><div><p className="eyebrow">Friday, September 25, 2026</p><h1>Good morning, Bram <span>↗</span></h1><p className="intro-copy">Here&apos;s what&apos;s moving across your SEO operations.</p></div><div className="intro-actions"><select value={project} onChange={(e) => setProject(e.target.value)}><option>All projects</option>{projects.map((item) => <option key={item.name}>{item.name}</option>)}</select><button className="primary-button" onClick={launchJob}><Icon name="plus" size={16} /> Launch job</button></div></section>
+          <section className="page-intro"><div><p className="eyebrow">Friday, September 29, 2026</p><h1>Good morning, Bram <span>↗</span></h1><p className="intro-copy">SEO operations command center.</p></div><div className="intro-actions"><button className="primary-button" onClick={() => setShowImportWizard(true)}><Icon name="upload" size={16} /> Import GSC/GA Data</button></div></section>
 
           <div className="metric-grid">
             <article className="metric-card"><div className="metric-top"><span>Active projects</span><span className="metric-icon violet-bg"><Icon name="layers" size={16} /></span></div><strong>12</strong><div className="metric-bottom positive"><span>↗ 8.3%</span><small>vs. last month</small></div></article>
@@ -94,7 +92,8 @@ export default function App() {
           <section className="activity-strip"><div className="activity-heading"><div><p className="eyebrow">Traceability</p><h2>Latest activity</h2></div><button className="text-button" onClick={() => setActive('Logs')}>Open logs <Icon name="arrow" size={15} /></button></div><div className="activity-items"><div><StatusDot /><span><strong>Job completed</strong> · GCTR campaign refresh for Example.com</span><time>09:42</time></div><div><StatusDot tone="blue" /><span><strong>Job queued</strong> · Mentions scan for BnbGeeks.org</span><time>09:35</time></div><div><StatusDot tone="amber" /><span><strong>Retry scheduled</strong> · GCTR keyword campaign for OtGeeks.org</span><time>09:18</time></div></div></section>
         </div>
       </main>
-      {showToast && <div className="toast"><span className="toast-icon"><Icon name="check" size={15} /></span><div><strong>Job added to queue</strong><small>GCTR execution created for {project === 'All projects' ? 'Example.com' : project}</small></div></div>}
+      {showToast && <div className="toast"><span className="toast-icon"><Icon name="check" size={15} /></span><div><strong>Job added to queue</strong><small>Remote browser session started</small></div></div>}
+      {showImportWizard && <ImportWizard onClose={() => setShowImportWizard(false)} />}
     </div>
   );
 }
