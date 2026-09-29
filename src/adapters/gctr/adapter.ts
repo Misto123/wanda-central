@@ -9,7 +9,7 @@ import type {
   HealthStatus 
 } from '@/types';
 
-const BASE_URL = 'https://anwgnjrawbsnirwwhrti.supabase.co/functions/v1/jobs-api';
+const BASE_URL = process.env.GCTR_API_URL || 'http://65.21.199.228:3000';
 
 export type CampaignType = 
   | 'gctr' 
