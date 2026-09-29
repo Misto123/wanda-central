@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Creator API Setup - Wanda Central</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1f2937; }
+    .container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .header { margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 1.125rem; color: #6b7280; }
+    .section { background: #fff; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 2rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+    h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .feature { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.5rem; padding: 1rem; }
+    .feature strong { display: block; color: #15803d; margin-bottom: 0.25rem; font-size: 0.875rem; }
+    .feature small { color: #4b5563; font-size: 0.813rem; }
+    .code-block { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+    pre { font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; }
+    code { color: #059669; }
+    .endpoint { background: #f0fdf4; padding: 1rem; border-radius: 0.5rem; border: 1px solid #bbf7d0; }
+    .endpoint strong { color: #15803d; }
+    .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; }
+    .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #16a34a; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 500; margin-top: 1rem; }
+    .btn:hover { background: #15803d; }
+    ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+    li { margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Content Creator API Setup</h1>
+      <p class="subtitle">Generate SEO-optimized articles with AI • Add statistics, human experiences & multiple keywords</p>
+    </div>
+
+    <!-- What You Get -->
+    <div class="section">
+      <h2>What You Get</h2>
+      <div class="features">
+        <div class="feature">
+          <strong>SEO Content</strong>
+          <small>Title, meta, H1, sections, FAQs, schemas</small>
+        </div>
+        <div class="feature">
+          <strong>Human Experiences</strong>
+          <small>Add real testing data & statistics</small>
+        </div>
+        <div class="feature">
+          <strong>JSON-LD Schemas</strong>
+          <small>Article & FAQ structured data</small>
+        </div>
+        <div class="feature">
+          <strong>No AI Slop</strong>
+          <small>Removes 20+ AI writing patterns</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Endpoint -->
+    <div class="section">
+      <h2>API Endpoint</h2>
+      <div class="endpoint">
+        <strong>POST</strong> https://wanda-central.vercel.app/api/content/generate
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">
+        <strong>Rate Limit:</strong> 200 requests/day • <strong>Timeout:</strong> 90 seconds
+      </p>
+    </div>
+
+    <!-- Basic Request -->
+    <div class="section">
+      <h2>Basic Request</h2>
+      <div class="code-block">
+        <pre><code>fetch('https://wanda-central.vercel.app/api/content/generate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    website_domain: 'yourblog.com',
+    main_keyword: 'best coffee makers 2026',
+    enable_no_ai_slop: true
+  })
+})</code></pre>
+      </div>
+    </div>
+
+    <!-- Add Statistics -->
+    <div class="section">
+      <h2>Add Statistics & Numbers</h2>
+      <p>Include real testing data and measurements:</p>
+      <div class="code-block">
+        <pre><code>enable_first_hand_experience: true,
+first_hand_experience: `
+  Tested 8 coffee makers for 90 days:
+  - Breville: 6 minutes brew time
+  - Cost: $67 average per machine
+  - 45 cups before cleaning needed
+  - Temperature: 195°F optimal
+`</code></pre>
+      </div>
+    </div>
+
+    <!-- Multiple Keywords -->
+    <div class="section">
+      <h2>Target Multiple Keywords</h2>
+      <div class="code-block">
+        <pre><code>main_keyword: 'best coffee makers',
+secondary_keywords: [
+  'drip coffee maker',
+  'espresso machine',
+  'automatic coffee'
+]</code></pre>
+      </div>
+    </div>
+
+    <!-- SEO Features -->
+    <div class="section">
+      <h2>Enable SEO Optimization</h2>
+      <div class="code-block">
+        <pre><code>enable_no_ai_slop: true,           // Remove AI patterns
+enable_enhanced_humanizer: true,   // Google AI Overviews
+enable_seo_optimization: true,     // LSI terms + PAA
+include_seo_insights: true         // Related keywords</code></pre>
+      </div>
+    </div>
+
+    <!-- Response -->
+    <div class="section">
+      <h2>Response Format</h2>
+      <div class="code-block">
+        <pre><code>{
+  "success": true,
+  "request_id": "uuid",
+  "remaining_quota": 199,
+  "content": {
+    "meta": {
+      "title": "SEO-optimized title",
+      "description": "Meta description",
+      "slug": "url-slug"
+    },
+    "content": {
+      "h1": "Main heading",
+      "intro": "Opening paragraph",
+      "sections": [{ "heading": "...", "body": "..." }],
+      "cta": "Call to action"
+    },
+    "faqs": [{ "question": "...", "answer": "..." }],
+    "schema": {
+      "article_jsonld": "...",
+      "faq_jsonld": "..."
+    },
+    "seo_insights": {
+      "relatedTerms": [],
+      "questions": [],
+      "boldedKeywords": []
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- MCP Integration -->
+    <div class="section">
+      <h2>MCP Server Integration</h2>
+      <p>Connect to Wanda Central via Model Context Protocol for AI agents like Claude:</p>
+      <div class="code-block">
+        <pre><code>{
+  "mcpServers": {
+    "wanda-central": {
+      "command": "node",
+      "args": ["path/to/wanda-mcp-server"],
+      "env": {
+        "WANDA_API_URL": "https://wanda-central.vercel.app"
+      }
+    }
+  }
+}</code></pre>
+      </div>
+      <div class="info-box">
+        <strong>For AI Agents:</strong> Use MCP to let Claude, GPT, or other agents generate content directly via natural language commands.
+      </div>
+    </div>
+
+    <!-- Documentation -->
+    <div class="section">
+      <h2>Complete Documentation</h2>
+      <p>See <strong>API_DOCUMENTATION.md</strong> for full examples, error handling, and integration patterns.</p>
+      <a href="https://github.com/Misto123/wanda-central/blob/main/API_DOCUMENTATION.md" target="_blank" class="btn">
+        View Full Documentation →
+      </a>
+    </div>
+  </div>
+</body>
+</html>
