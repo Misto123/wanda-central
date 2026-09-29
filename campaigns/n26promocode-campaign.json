@@ -1,0 +1,55 @@
+{
+  "campaign_id": "n26promocode_001",
+  "website": "n26promocode.com",
+  "created_at": "2026-09-29",
+  "status": "pending_svb_connection",
+  
+  "keywords": {
+    "primary": [
+      "n26 promo code",
+      "n26 referral code",
+      "referral bonus n26"
+    ],
+    "fallback": "n26promocode.com"
+  },
+  
+  "traffic_settings": {
+    "visits_per_day": 2,
+    "distribution": "even",
+    "source_type": "organic"
+  },
+  
+  "content_settings": {
+    "main_keyword": "n26 promo code",
+    "secondary_keywords": [
+      "n26 referral code",
+      "referral bonus n26",
+      "n26 bonus",
+      "n26 discount code"
+    ],
+    "language": "English",
+    "article_length_words": 800,
+    "tone": "informational",
+    "search_intent": "commercial",
+    "enable_first_hand_experience": true,
+    "enable_seo_optimization": true,
+    "enable_no_ai_slop": true
+  },
+  
+  "svb_integration": {
+    "status": "awaiting_api_details",
+    "required_info": {
+      "api_endpoint": "Please provide SVB 3.0 API endpoint",
+      "api_key": "Please provide SVB 3.0 API key",
+      "campaign_type": "traffic_generation",
+      "verification_method": "organic_search"
+    }
+  },
+  
+  "tracking": {
+    "website_domain": "n26promocode.com",
+    "track_conversions": true,
+    "track_referrals": true,
+    "daily_reporting": true
+  }
+}
