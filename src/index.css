@@ -171,3 +171,19 @@
 @keyframes toast-in { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @media (max-width: 1080px) { .sidebar { width: 215px; } .page-wrap, .topbar { padding-left: 25px; padding-right: 25px; } .section-grid, .lower-grid { grid-template-columns: 1fr; } .health-panel { min-height: 0; } }
 @media (max-width: 750px) { .sidebar { width: 62px; padding: 20px 8px 12px; } .brand-lockup { padding: 0 8px 26px; } .brand-lockup > div:last-child, .workspace-switcher > div:nth-child(2), .workspace-switcher .chevron, .nav-label, .nav-item span, .nav-count, .sidebar-user div:nth-child(2), .sidebar-user > .icon { display: none; } .workspace-switcher { padding: 8px; justify-content: center; margin-bottom: 20px; } .nav-item { justify-content: center; padding: 11px 0; } .sidebar-user { justify-content: center; padding-left: 0; padding-right: 0; } .page-wrap { padding: 27px 15px 45px; } .topbar { height: 60px; padding: 0 15px; } .page-intro { display: block; } .intro-actions { margin-top: 20px; } .intro-actions select { flex: 1; } .metric-grid { grid-template-columns: repeat(2, 1fr); } .metric-card { min-height: 128px; } .job-row { gap: 8px; } .job-status { width: 72px; } .job-id { display: none; } .project-row { flex-wrap: wrap; } .project-name { flex: 1; } .module-tags { order: 4; width: 100%; flex-basis: 100%; padding-left: 44px; } .project-activity { margin-left: auto; } .activity-items { display: block; } .activity-items > div, .activity-items > div:last-child { border-right: 0; border-bottom: 1px solid #f0f0f4; margin: 0; padding: 10px 0; } .activity-items > div:last-child { border-bottom: 0; } .breadcrumbs span:first-child, .breadcrumbs span:nth-child(2) { display: none; } }
+
+.integration-url {
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.integration-item.healthy .integration-url {
+  color: var(--success);
+}
+
+.integration-item.disconnected .integration-url {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
