@@ -3,63 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marketplace Studio API Documentation</title>
+  <title>Content Creator API - Wanda Central</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1f2937; background: #f9fafb; }
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+      line-height: 1.6; 
+      color: #0F172A; 
+      background: #F8FAFC; 
+    }
     .container { max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem; }
-    .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 3rem 2rem; text-align: center; border-radius: 1rem; margin-bottom: 3rem; }
-    .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .header p { font-size: 1.125rem; opacity: 0.95; }
+    .header { 
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); 
+      color: white; 
+      padding: 3rem 2rem; 
+      text-align: center; 
+      border-radius: 12px; 
+      margin-bottom: 3rem; 
+    }
+    .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+    .header p { font-size: 1.125rem; opacity: 0.9; }
     
-    .section { background: white; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 2rem; margin-bottom: 1.5rem; }
-    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #059669; }
+    .section { 
+      background: white; 
+      border: 1px solid #E2E8F0; 
+      border-radius: 12px; 
+      padding: 2rem; 
+      margin-bottom: 1.5rem; 
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #3B82F6; }
     h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
     
-    .api-key-box { background: #f0fdf4; border: 2px solid #10b981; border-radius: 0.75rem; padding: 1.5rem; margin: 1rem 0; position: relative; }
-    .api-key-box code { font-family: 'Monaco', 'Courier New', monospace; font-size: 1.125rem; font-weight: 600; color: #059669; display: block; margin: 0.5rem 0; word-break: break-all; }
+    .api-key-box { 
+      background: #EFF6FF; 
+      border: 2px solid #3B82F6; 
+      border-radius: 8px; 
+      padding: 1.5rem; 
+      margin: 1rem 0; 
+      position: relative; 
+    }
+    .api-key-box code { 
+      font-family: 'Monaco', 'Courier New', monospace; 
+      font-size: 1.125rem; 
+      font-weight: 600; 
+      color: #1E40AF; 
+      display: block; 
+      margin: 0.5rem 0; 
+      word-break: break-all; 
+    }
     
-    .code-block { background: #1f2937; color: #f9fafb; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin: 1rem 0; position: relative; }
+    .code-block { 
+      background: #0F172A; 
+      color: #F1F5F9; 
+      border-radius: 8px; 
+      padding: 1rem; 
+      overflow-x: auto; 
+      margin: 1rem 0; 
+      position: relative; 
+    }
     .code-block pre { font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; }
-    .code-block code { color: #f9fafb; }
     
-    .copy-btn { position: absolute; top: 1rem; right: 1rem; padding: 0.5rem 1rem; background: #10b981; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
-    .copy-btn:hover { background: #059669; }
-    .copy-btn.copied { background: #22c55e; }
+    .copy-btn { 
+      position: absolute; 
+      top: 1rem; 
+      right: 1rem; 
+      padding: 0.5rem 1rem; 
+      background: #3B82F6; 
+      color: white; 
+      border: none; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-size: 0.875rem; 
+      font-weight: 500; 
+      transition: all 200ms ease-out; 
+    }
+    .copy-btn:hover { background: #60A5FA; transform: translateY(-1px); }
+    .copy-btn.copied { background: #10B981; }
     
     .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
-    .feature { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 0.5rem; padding: 1rem; }
-    .feature strong { display: block; color: #1d4ed8; margin-bottom: 0.25rem; font-size: 0.875rem; }
-    .feature small { color: #4b5563; font-size: 0.813rem; }
+    .feature { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 1rem; }
+    .feature strong { display: block; color: #1E40AF; margin-bottom: 0.25rem; font-size: 0.875rem; }
+    .feature small { color: #475569; font-size: 0.813rem; }
     
-    .info-box { background: #fef3c7; border: 1px solid #fde68a; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
-    .success-box { background: #dcfce7; border: 1px solid #86efac; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .info-box { background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .success-box { background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
     
     table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #e5e7eb; }
-    th { background: #f9fafb; font-weight: 600; }
+    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #E2E8F0; }
+    th { background: #F1F5F9; font-weight: 600; }
     
-    ul, ol { margin-left: 1.5rem; margin-top: 0.5rem; }
-    li { margin-bottom: 0.5rem; }
-    
-    a { color: #10b981; text-decoration: none; }
+    a { color: #3B82F6; text-decoration: none; }
     a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h1>Marketplace Studio API</h1>
-      <p>Start generating SEO-optimized articles in 60 seconds</p>
+      <h1>📝 Content Creator API</h1>
+      <p>Generate SEO-optimized articles for marketplacestudio.nl</p>
     </div>
 
     <!-- API Key -->
     <div class="section">
       <h2>🔑 Your API Key</h2>
-      <p style="margin-bottom: 1rem;">Copy this key - you'll need it for every request</p>
+      <p style="margin-bottom: 1rem;">Copy this key for all requests</p>
       <div class="api-key-box">
-        <code>hfc_2x8RueOc4ptHsJaAuaCbHbyJU2X9RzP4</code>
-        <button class="copy-btn" onclick="copyText('hfc_2x8RueOc4ptHsJaAuaCbHbyJU2X9RzP4', this)">📋 Copy Key</button>
+        <code>hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj</code>
+        <button class="copy-btn" onclick="copyText('hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj', this)">📋 Copy Key</button>
       </div>
       <div class="info-box">
         <strong>⚠️ Security:</strong> Store this key server-side only. Never expose in client-side JavaScript.
@@ -71,22 +125,25 @@
       <h2>📡 API Endpoint</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'endpoint')">📋 Copy</button>
-        <pre><code id="endpoint">POST https://wanda-central.vercel.app/api/content/generate</code></pre>
+        <pre><code id="endpoint">POST https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api</code></pre>
       </div>
-      <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">
+      <p style="margin-top: 1rem; font-size: 0.875rem; color: #64748B;">
         <strong>Rate Limit:</strong> 200 requests/day • <strong>Timeout:</strong> 90 seconds
       </p>
     </div>
 
     <!-- Quick Start -->
     <div class="section">
-      <h2>⚡ Quick Start - Generate Your First Article</h2>
-      <p style="margin-bottom: 1rem;">Copy-paste this code to generate an article for marketplacestudio.nl:</p>
+      <h2>⚡ Quick Start</h2>
+      <p style="margin-bottom: 1rem;">Generate an article for marketplacestudio.nl:</p>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'quickstart')">📋 Copy Code</button>
-        <pre><code id="quickstart">fetch('https://wanda-central.vercel.app/api/content/generate', {
+        <pre><code id="quickstart">fetch('https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj'
+  },
   body: JSON.stringify({
     website_domain: 'marketplacestudio.nl',
     main_keyword: 'marketplace solutions',
@@ -95,55 +152,35 @@
   })
 })
 .then(r => r.json())
-.then(article => {
-  console.log('Title:', article.content.meta.title);
-  console.log('H1:', article.content.content.h1);
-  console.log('Remaining quota:', article.remaining_quota);
-});</code></pre>
+.then(article => console.log(article));</code></pre>
       </div>
     </div>
 
-    <!-- Full Example -->
+    <!-- Complete Example -->
     <div class="section">
-      <h2>📝 Complete Example with All Features</h2>
+      <h2>📝 Complete Example</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'fullexample')">📋 Copy Code</button>
-        <pre><code id="fullexample">fetch('https://wanda-central.vercel.app/api/content/generate', {
+        <pre><code id="fullexample">fetch('https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj'
+  },
   body: JSON.stringify({
     website_domain: 'marketplacestudio.nl',
     main_keyword: 'marketplace platform',
-    
-    // Add multiple keywords
     secondary_keywords: [
       'online marketplace',
-      'e-commerce platform',
-      'multi-vendor marketplace'
+      'e-commerce platform'
     ],
-    
-    // Add real statistics and data
     enable_first_hand_experience: true,
-    first_hand_experience: `
-      We've helped 150+ businesses build marketplaces:
-      - Setup time: 14 days average
-      - Uptime: 99.9%
-      - Client satisfaction: 4.8/5
-      - Cost savings: 40% vs custom dev
-    `,
-    
-    // Quality features (RECOMMENDED)
+    first_hand_experience: 'We power 150+ marketplaces with 99.9% uptime',
     enable_no_ai_slop: true,
     enable_seo_optimization: true,
-    include_seo_insights: true,
-    
-    // Content settings
-    article_length_words: 800,
-    tone: 'professional'
+    article_length_words: 800
   })
-})
-.then(r => r.json())
-.then(article => console.log(article));</code></pre>
+});</code></pre>
       </div>
     </div>
 
@@ -170,128 +207,42 @@
       </div>
     </div>
 
-    <!-- Response Format -->
-    <div class="section">
-      <h2>📦 Response Format</h2>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this, 'response')">📋 Copy</button>
-        <pre><code id="response">{
-  "success": true,
-  "request_id": "uuid",
-  "remaining_quota": 199,
-  "content": {
-    "meta": {
-      "title": "SEO-optimized title",
-      "description": "Meta description",
-      "slug": "url-slug"
-    },
-    "content": {
-      "h1": "Main heading",
-      "intro": "Opening paragraph",
-      "sections": [{
-        "heading": "Section title",
-        "body": "Markdown content"
-      }],
-      "cta": "Call to action"
-    },
-    "faqs": [{
-      "question": "Question",
-      "answer": "Answer"
-    }],
-    "schema": {
-      "article_jsonld": "...",
-      "faq_jsonld": "..."
-    },
-    "seo_insights": {
-      "relatedTerms": [],
-      "questions": [],
-      "boldedKeywords": []
-    }
-  }
-}</code></pre>
-      </div>
-    </div>
-
     <!-- cURL Example -->
     <div class="section">
       <h2>🖥️ Test with cURL</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'curl')">📋 Copy</button>
-        <pre><code id="curl">curl -X POST https://wanda-central.vercel.app/api/content/generate \
+        <pre><code id="curl">curl -X POST https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj" \
   -d '{
     "website_domain": "marketplacestudio.nl",
     "main_keyword": "marketplace software",
-    "enable_no_ai_slop": true,
-    "enable_seo_optimization": true
+    "enable_no_ai_slop": true
   }'</code></pre>
-      </div>
-    </div>
-
-    <!-- Use Cases -->
-    <div class="section">
-      <h2>🎯 Use Cases</h2>
-      <h3>1. Blog Post</h3>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this, 'blog')">📋 Copy</button>
-        <pre><code id="blog">main_keyword: 'how to build a marketplace'</code></pre>
-      </div>
-
-      <h3>2. Product Page</h3>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this, 'product')">📋 Copy</button>
-        <pre><code id="product">main_keyword: 'marketplace studio features',
-secondary_keywords: ['pricing', 'integrations']</code></pre>
-      </div>
-
-      <h3>3. Landing Page with Statistics</h3>
-      <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this, 'landing')">📋 Copy</button>
-        <pre><code id="landing">main_keyword: 'best marketplace platform',
-enable_first_hand_experience: true,
-first_hand_experience: 'We power 150+ marketplaces with 99.9% uptime'</code></pre>
       </div>
     </div>
 
     <!-- Rate Limits -->
     <div class="section">
-      <h2>📊 Rate Limits & Quota</h2>
+      <h2>📊 Rate Limits</h2>
       <table>
-        <tr>
-          <th>Limit</th>
-          <th>Value</th>
-        </tr>
-        <tr>
-          <td>Requests per day</td>
-          <td>200</td>
-        </tr>
-        <tr>
-          <td>Quota reset</td>
-          <td>Midnight UTC</td>
-        </tr>
-        <tr>
-          <td>Timeout</td>
-          <td>90 seconds</td>
-        </tr>
+        <tr><th>Limit</th><th>Value</th></tr>
+        <tr><td>Requests per day</td><td>200</td></tr>
+        <tr><td>Quota reset</td><td>Midnight UTC</td></tr>
+        <tr><td>Timeout</td><td>90 seconds</td></tr>
       </table>
-      <p style="margin-top: 1rem; font-size: 0.875rem;">Check <code>remaining_quota</code> in each response to monitor usage.</p>
     </div>
 
-    <!-- Ready to Start -->
-    <div class="section" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: #86efac;">
-      <h2>🎉 You're Ready!</h2>
+    <!-- Ready Box -->
+    <div class="section" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-color: #BFDBFE;">
+      <h2>🎉 Ready to Start!</h2>
       <div class="success-box">
-        <strong>✅ API Key:</strong> hfc_2x8RueOc4ptHsJaAuaCbHbyJU2X9RzP4<br>
-        <strong>✅ Endpoint:</strong> https://wanda-central.vercel.app/api/content/generate<br>
-        <strong>✅ Quota:</strong> 200 requests/day<br>
-        <strong>✅ Dashboard:</strong> <a href="https://wanda-central.vercel.app/app">wanda-central.vercel.app/app</a>
+        <strong>✅ Endpoint:</strong> https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api<br>
+        <strong>✅ API Key:</strong> hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj<br>
+        <strong>✅ Header:</strong> Authorization: Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj<br>
+        <strong>✅ Quota:</strong> 200 requests/day
       </div>
-      <p style="margin-top: 1rem;">Start generating articles for <strong>marketplacestudio.nl</strong> now!</p>
-    </div>
-
-    <!-- Footer -->
-    <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #6b7280; font-size: 0.875rem;">
-      <p>Wanda Central • <a href="https://wanda-central.vercel.app">Dashboard</a> • <a href="https://github.com/Misto123/wanda-central">GitHub</a></p>
     </div>
   </div>
 
