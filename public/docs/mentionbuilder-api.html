@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MentionBuilder API - Generate Brand Mentions</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1f2937; background: #f9fafb; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .header { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; padding: 3rem 2rem; text-align: center; border-radius: 1rem; margin-bottom: 3rem; }
+    .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .header p { font-size: 1.125rem; opacity: 0.95; }
+    
+    .section { background: white; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 2rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #db2777; }
+    h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    
+    .api-key-box { background: #fdf2f8; border: 2px solid #ec4899; border-radius: 0.75rem; padding: 1.5rem; margin: 1rem 0; position: relative; }
+    .api-key-box code { font-family: 'Monaco', 'Courier New', monospace; font-size: 1.125rem; font-weight: 600; color: #db2777; display: block; margin: 0.5rem 0; word-break: break-all; }
+    
+    .code-block { background: #1f2937; color: #f9fafb; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin: 1rem 0; position: relative; }
+    .code-block pre { font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; }
+    
+    .copy-btn { position: absolute; top: 1rem; right: 1rem; padding: 0.5rem 1rem; background: #ec4899; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+    .copy-btn:hover { background: #db2777; }
+    .copy-btn.copied { background: #f472b6; }
+    
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .feature { background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 0.5rem; padding: 1rem; }
+    .feature strong { display: block; color: #be123c; margin-bottom: 0.25rem; font-size: 0.875rem; }
+    .feature small { color: #4b5563; font-size: 0.813rem; }
+    
+    .info-box { background: #fef3c7; border: 1px solid #fde68a; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .success-box { background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #e5e7eb; }
+    th { background: #f9fafb; font-weight: 600; }
+    
+    ul, ol { margin-left: 1.5rem; margin-top: 0.5rem; }
+    li { margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 MentionBuilder API</h1>
+      <p>Generate brand mentions across the web with targeted keywords</p>
+    </div>
+
+    <!-- API Key -->
+    <div class="section">
+      <h2>🔑 Your API Key</h2>
+      <p style="margin-bottom: 1rem;">Copy this key for MentionBuilder requests</p>
+      <div class="api-key-box">
+        <code>mb_live_8k2Jx9pQ4vN7sR1tY6wH3mL5fC0aB</code>
+        <button class="copy-btn" onclick="copyText('mb_live_8k2Jx9pQ4vN7sR1tY6wH3mL5fC0aB', this)">📋 Copy Key</button>
+      </div>
+      <div class="info-box">
+        <strong>⚠️ Security:</strong> Store this key server-side only. Never expose in client-side code.
+      </div>
+    </div>
+
+    <!-- API Endpoint -->
+    <div class="section">
+      <h2>📡 API Endpoint</h2>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'endpoint')">📋 Copy</button>
+        <pre><code id="endpoint">POST https://wanda-central.vercel.app/api/mentions/generate</code></pre>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">
+        <strong>Rate Limit:</strong> 100 requests/day • <strong>Timeout:</strong> 60 seconds
+      </p>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="section">
+      <h2>⚡ Quick Start - Generate Mentions</h2>
+      <p style="margin-bottom: 1rem;">Generate brand mentions for your domain:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'quickstart')">📋 Copy Code</button>
+        <pre><code id="quickstart">fetch('https://wanda-central.vercel.app/api/mentions/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer mb_live_8k2Jx9pQ4vN7sR1tY6wH3mL5fC0aB'
+  },
+  body: JSON.stringify({
+    domain: 'marketplacestudio.nl',
+    keywords: [
+      'marketplace software',
+      'online marketplace',
+      'e-commerce platform'
+    ],
+    mention_count: 5,
+    context: 'professional'
+  })
+})
+.then(r => r.json())
+.then(data => console.log(data.mentions));</code></pre>
+      </div>
+    </div>
+
+    <!-- Complete Example -->
+    <div class="section">
+      <h2>📝 Complete Example with All Options</h2>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'fullexample')">📋 Copy Code</button>
+        <pre><code id="fullexample">fetch('https://wanda-central.vercel.app/api/mentions/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer mb_live_8k2Jx9pQ4vN7sR1tY6wH3mL5fC0aB'
+  },
+  body: JSON.stringify({
+    // Required
+    domain: 'marketplacestudio.nl',
+    keywords: [
+      'marketplace platform',
+      'multi-vendor marketplace',
+      'e-commerce solution'
+    ],
+    
+    // Optional settings
+    mention_count: 10,
+    context: 'professional',
+    include_backlink: true,
+    target_sites: [
+      'reddit.com',
+      'quora.com',
+      'medium.com'
+    ],
+    
+    // Scheduling
+    schedule: {
+      frequency: 'daily',
+      time: '10:00',
+      duration_days: 30
+    }
+  })
+})
+.then(r => r.json())
+.then(result => {
+  console.log('Mentions generated:', result.mentions.length);
+  console.log('Remaining quota:', result.remaining_quota);
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- What You Get -->
+    <div class="section">
+      <h2>📊 What You Get</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <strong>Brand Mentions</strong>
+          <small>Natural mentions across target sites</small>
+        </div>
+        <div class="feature">
+          <strong>Keyword Integration</strong>
+          <small>Your keywords naturally placed</small>
+        </div>
+        <div class="feature">
+          <strong>Backlinks</strong>
+          <small>Optional dofollow/nofollow links</small>
+        </div>
+        <div class="feature">
+          <strong>Tracking</strong>
+          <small>Monitor mention status & engagement</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Response Format -->
+    <div class="section">
+      <h2>📦 Response Format</h2>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'response')">📋 Copy</button>
+        <pre><code id="response">{
+  "success": true,
+  "request_id": "uuid",
+  "remaining_quota": 95,
+  "mentions": [
+    {
+      "id": "mention_1",
+      "site": "reddit.com",
+      "url": "https://reddit.com/r/ecommerce/...",
+      "keyword": "marketplace platform",
+      "status": "pending",
+      "scheduled_for": "2026-09-30T10:00:00Z"
+    },
+    {
+      "id": "mention_2",
+      "site": "quora.com",
+      "url": "pending",
+      "keyword": "multi-vendor marketplace",
+      "status": "pending",
+      "scheduled_for": "2026-09-30T14:00:00Z"
+    }
+  ]
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Use Cases -->
+    <div class="section">
+      <h2>🎯 Use Cases</h2>
+      
+      <h3>1. Brand Awareness Campaign</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'brand')">📋 Copy</button>
+        <pre><code id="brand">domain: 'marketplacestudio.nl',
+keywords: ['marketplace studio', 'best marketplace platform'],
+mention_count: 20,
+schedule: { frequency: 'weekly', duration_days: 90 }</code></pre>
+      </div>
+
+      <h3>2. SEO Link Building</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'seo')">📋 Copy</button>
+        <pre><code id="seo">domain: 'marketplacestudio.nl',
+keywords: ['marketplace software', 'e-commerce platform'],
+include_backlink: true,
+target_sites: ['reddit.com', 'medium.com', 'dev.to']</code></pre>
+      </div>
+
+      <h3>3. Product Launch</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'launch')">📋 Copy</button>
+        <pre><code id="launch">domain: 'marketplacestudio.nl',
+keywords: ['new marketplace platform', 'launch 2026'],
+mention_count: 30,
+context: 'enthusiastic'</code></pre>
+      </div>
+    </div>
+
+    <!-- Track Mentions -->
+    <div class="section">
+      <h2>📈 Track Your Mentions</h2>
+      <p>Check mention status and engagement:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this, 'track')">📋 Copy</button>
+        <pre><code id="track">GET https://wanda-central.vercel.app/api/mentions?domain=marketplacestudio.nl</code></pre>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.875rem;">Returns all mentions with status, views, engagement metrics.</p>
+    </div>
+
+    <!-- Rate Limits -->
+    <div class="section">
+      <h2>📊 Rate Limits & Pricing</h2>
+      <table>
+        <tr>
+          <th>Limit</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Requests per day</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>Mentions per request</td>
+          <td>Up to 50</td>
+        </tr>
+        <tr>
+          <td>Quota reset</td>
+          <td>Midnight UTC</td>
+        </tr>
+        <tr>
+          <td>Timeout</td>
+          <td>60 seconds</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Ready Box -->
+    <div class="section" style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-color: #fbcfe8;">
+      <h2>🎉 Ready to Generate Mentions!</h2>
+      <div class="success-box">
+        <strong>✅ API Key:</strong> mb_live_8k2Jx9pQ4vN7sR1tY6wH3mL5fC0aB<br>
+        <strong>✅ Endpoint:</strong> https://wanda-central.vercel.app/api/mentions/generate<br>
+        <strong>✅ Quota:</strong> 100 requests/day<br>
+        <strong>✅ Dashboard:</strong> <a href="https://wanda-central.vercel.app/app" style="color: #db2777;">Track mentions here</a>
+      </div>
+      <p style="margin-top: 1rem;">Start building brand awareness for <strong>marketplacestudio.nl</strong> now!</p>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #6b7280; font-size: 0.875rem;">
+      <p>Wanda Central • <a href="https://wanda-central.vercel.app" style="color: #ec4899;">Dashboard</a> • <a href="https://github.com/Misto123/wanda-central" style="color: #ec4899;">GitHub</a></p>
+    </div>
+  </div>
+
+  <script>
+    function copyText(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function copyCode(button, elementId) {
+      const code = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
