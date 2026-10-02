@@ -7,6 +7,10 @@
     {
       "source": "/app/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/api/content/generate",
+      "destination": "/api/content-generate.js"
     }
   ],
   "headers": [
