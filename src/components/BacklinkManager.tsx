@@ -56,8 +56,8 @@ export default function BacklinkManager() {
   const [startDate, setStartDate] = useState('');
   
   // Data state
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [placements, setplacements] = useState<Placement[]>([]);
+  const [jobs, _setJobs] = useState<Job[]>([]);
+  const [placements, setPlacements] = useState<Placement[]>([]);
   const [apiKey, setApiKey] = useState('');
 
   const API_BASE = 'https://ppiumdjsoymgaodrkgga.supabase.co/functions/v1/etsygeeks_backlink_api';
