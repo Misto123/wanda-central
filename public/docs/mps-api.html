@@ -89,8 +89,9 @@
     .feature strong { display: block; color: #1E40AF; margin-bottom: 0.25rem; font-size: 0.875rem; }
     .feature small { color: #475569; font-size: 0.813rem; }
     
-    .info-box { background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .warning-box { background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
     .success-box { background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .error-box { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.875rem; }
     
     table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
     th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #E2E8F0; }
@@ -98,6 +99,8 @@
     
     a { color: #3B82F6; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    
+    .highlight { background: #FEF3C7; padding: 0.125rem 0.5rem; border-radius: 4px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -107,48 +110,58 @@
       <p>Generate SEO-optimized articles for marketplacestudio.nl</p>
     </div>
 
-    <!-- API Key -->
-    <div class="section">
-      <h2>🔑 Your API Key</h2>
-      <p style="margin-bottom: 1rem;">Copy this key for all requests</p>
-      <div class="api-key-box">
-        <code>hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj</code>
-        <button class="copy-btn" onclick="copyText('hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj', this)">📋 Copy Key</button>
-      </div>
-      <div class="info-box">
-        <strong>⚠️ Security:</strong> Store this key server-side only. Never expose in client-side JavaScript.
-      </div>
-    </div>
-
     <!-- API Endpoint -->
     <div class="section">
       <h2>📡 API Endpoint</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'endpoint')">📋 Copy</button>
-        <pre><code id="endpoint">POST https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api</code></pre>
+        <pre><code id="endpoint">POST https://wanda-central.vercel.app/api/content/generate</code></pre>
       </div>
-      <p style="margin-top: 1rem; font-size: 0.875rem; color: #64748B;">
-        <strong>Rate Limit:</strong> 200 requests/day • <strong>Timeout:</strong> 90 seconds
-      </p>
+      <div class="warning-box">
+        <strong>⚠️ IMPORTANT - Request Body Structure:</strong><br>
+        Use <code>keywords.main_keyword</code> NOT <code>main_keyword</code> at root level!
+      </div>
+    </div>
+
+    <!-- Rate Limits -->
+    <div class="section">
+      <h2>⚡ Rate Limits & Constraints</h2>
+      <table>
+        <tr><th>Limit</th><th>Value</th></tr>
+        <tr><td>Requests per day</td><td>200</td></tr>
+        <tr><td><span class="highlight">Article length (words)</span></td><td><span class="highlight">50 - 1500 words</span></td></tr>
+        <tr><td>Timeout</td><td>90 seconds</td></tr>
+        <tr><td>Quota reset</td><td>Midnight UTC</td></tr>
+      </table>
+      <div class="error-box">
+        <strong>❌ Word Count Limit:</strong><br>
+        Maximum: <strong>1500 words</strong><br>
+        Minimum: <strong>50 words</strong><br>
+        Default: <strong>800 words</strong> (if not specified)<br><br>
+        <strong>Exceeding 1500 words will cause errors!</strong>
+      </div>
     </div>
 
     <!-- Quick Start -->
     <div class="section">
-      <h2>⚡ Quick Start</h2>
-      <p style="margin-bottom: 1rem;">Generate an article for marketplacestudio.nl:</p>
+      <h2>⚡ Quick Start (CORRECT FORMAT)</h2>
+      <p style="margin-bottom: 1rem;">Generate an article with correct body structure:</p>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'quickstart')">📋 Copy Code</button>
-        <pre><code id="quickstart">fetch('https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api', {
+        <pre><code id="quickstart">fetch('https://wanda-central.vercel.app/api/content/generate', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj'
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify({
+    keywords: {
+      main_keyword: 'marketplace solutions',
+      secondary_keywords: ['online marketplace', 'e-commerce platform']
+    },
     website_domain: 'marketplacestudio.nl',
-    main_keyword: 'marketplace solutions',
     enable_no_ai_slop: true,
-    enable_seo_optimization: true
+    enable_seo_optimization: true,
+    article_length_words: 800  // MAX: 1500 words
   })
 })
 .then(r => r.json())
@@ -158,29 +171,102 @@
 
     <!-- Complete Example -->
     <div class="section">
-      <h2>📝 Complete Example</h2>
+      <h2>📝 Complete Example (ALL FIELDS)</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'fullexample')">📋 Copy Code</button>
-        <pre><code id="fullexample">fetch('https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api', {
+        <pre><code id="fullexample">fetch('https://wanda-central.vercel.app/api/content/generate', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj'
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify({
+    keywords: {
+      main_keyword: 'marketplace platform',
+      secondary_keywords: [
+        'online marketplace',
+        'e-commerce platform',
+        'multi-vendor marketplace'
+      ]
+    },
     website_domain: 'marketplacestudio.nl',
-    main_keyword: 'marketplace platform',
-    secondary_keywords: [
-      'online marketplace',
-      'e-commerce platform'
-    ],
     enable_first_hand_experience: true,
     first_hand_experience: 'We power 150+ marketplaces with 99.9% uptime',
     enable_no_ai_slop: true,
     enable_seo_optimization: true,
-    article_length_words: 800
+    article_length_words: 1200  // MAX: 1500 words
   })
+})
+.then(r => r.json())
+.then(data => {
+  if (data.success) {
+    console.log('Article generated!', data.content);
+  } else {
+    console.error('Error:', data.error);
+  }
 });</code></pre>
+      </div>
+    </div>
+
+    <!-- Request Body Schema -->
+    <div class="section">
+      <h2>📋 Request Body Schema</h2>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr>
+          <td><code>keywords.main_keyword</code></td>
+          <td>string</td>
+          <td>✅ Yes</td>
+          <td>Main keyword for the article</td>
+        </tr>
+        <tr>
+          <td><code>keywords.secondary_keywords</code></td>
+          <td>array</td>
+          <td>No</td>
+          <td>Array of secondary keywords</td>
+        </tr>
+        <tr>
+          <td><code>website_domain</code></td>
+          <td>string</td>
+          <td>✅ Yes</td>
+          <td>Your domain (e.g. marketplacestudio.nl)</td>
+        </tr>
+        <tr>
+          <td><code>article_length_words</code></td>
+          <td>number</td>
+          <td>No</td>
+          <td><strong>50-1500 words</strong> (default: 800)</td>
+        </tr>
+        <tr>
+          <td><code>enable_no_ai_slop</code></td>
+          <td>boolean</td>
+          <td>No</td>
+          <td>Remove AI patterns (recommended: true)</td>
+        </tr>
+        <tr>
+          <td><code>enable_seo_optimization</code></td>
+          <td>boolean</td>
+          <td>No</td>
+          <td>SEO optimization (recommended: true)</td>
+        </tr>
+        <tr>
+          <td><code>enable_first_hand_experience</code></td>
+          <td>boolean</td>
+          <td>No</td>
+          <td>Add personal experience</td>
+        </tr>
+        <tr>
+          <td><code>first_hand_experience</code></td>
+          <td>string</td>
+          <td>No</td>
+          <td>Your experience text</td>
+        </tr>
+      </table>
+      <div class="error-box">
+        <strong>⚠️ Common Mistakes:</strong><br>
+        ❌ <code>"main_keyword": "..."</code> (at root level)<br>
+        ✅ <code>"keywords": { "main_keyword": "..." }</code> (correct!)<br><br>
+        ❌ <code>"article_length_words": 2000</code> (too long!)<br>
+        ✅ <code>"article_length_words": 1500</code> (max allowed)
       </div>
     </div>
 
@@ -212,53 +298,55 @@
       <h2>🖥️ Test with cURL</h2>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this, 'curl')">📋 Copy</button>
-        <pre><code id="curl">curl -X POST https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api \
+        <pre><code id="curl">curl -X POST https://wanda-central.vercel.app/api/content/generate \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj" \
   -d '{
+    "keywords": {
+      "main_keyword": "marketplace software"
+    },
     "website_domain": "marketplacestudio.nl",
-    "main_keyword": "marketplace software",
-    "enable_no_ai_slop": true
+    "enable_no_ai_slop": true,
+    "article_length_words": 1200
   }'</code></pre>
       </div>
     </div>
 
-    <!-- Rate Limits -->
+    <!-- Error Responses -->
     <div class="section">
-      <h2>📊 Rate Limits</h2>
-      <table>
-        <tr><th>Limit</th><th>Value</th></tr>
-        <tr><td>Requests per day</td><td>200</td></tr>
-        <tr><td>Quota reset</td><td>Midnight UTC</td></tr>
-        <tr><td>Timeout</td><td>90 seconds</td></tr>
-      </table>
+      <h2>❌ Error Responses</h2>
+      <h3>Missing Required Field</h3>
+      <div class="code-block">
+        <pre><code>{
+  "success": false,
+  "error": "Validation failed",
+  "validation_errors": [
+    "keywords.main_keyword is required for new_content"
+  ]
+}</code></pre>
+      </div>
+      <h3>Word Count Too High</h3>
+      <div class="code-block">
+        <pre><code>{
+  "success": false,
+  "error": "article_length_words must be between 50 and 1500"
+}</code></pre>
+      </div>
     </div>
 
     <!-- Ready Box -->
     <div class="section" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-color: #BFDBFE;">
       <h2>🎉 Ready to Start!</h2>
       <div class="success-box">
-        <strong>✅ Endpoint:</strong> https://kalswipohwljtousvacy.supabase.co/functions/v1/public-api<br>
-        <strong>✅ API Key:</strong> hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj<br>
-        <strong>✅ Header:</strong> Authorization: Bearer hfc_Q2eeLra9LWtpQBXmTVFliUbukobVZuYj<br>
-        <strong>✅ Quota:</strong> 200 requests/day
+        <strong>✅ Endpoint:</strong> https://wanda-central.vercel.app/api/content/generate<br>
+        <strong>✅ Method:</strong> POST<br>
+        <strong>✅ Auth:</strong> None required (handled by proxy)<br>
+        <strong>✅ Rate Limit:</strong> 200 requests/day<br>
+        <strong>✅ Max Words:</strong> <span class="highlight">1500 words</span>
       </div>
     </div>
   </div>
 
   <script>
-    function copyText(text, button) {
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = button.textContent;
-        button.textContent = '✓ Copied!';
-        button.classList.add('copied');
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove('copied');
-        }, 2000);
-      });
-    }
-
     function copyCode(button, elementId) {
       const code = document.getElementById(elementId).textContent;
       navigator.clipboard.writeText(code).then(() => {
