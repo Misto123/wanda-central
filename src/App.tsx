@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import BacklinkManager from './components/BacklinkManager';
+import MentionBuilder from './components/MentionBuilder';
 
 export default function App() {
-  const [activePage, setActivePage] = useState<'content' | 'gsc' | 'youtube' | 'mentions' | 'traffic' | 'backlinks'>('content');
+  const [activePage, setActivePage] = useState<'content' | 'gsc' | 'youtube' | 'mentions' | 'traffic' | 'backlinks'>('mentions');
   const [domain, setDomain] = useState('marketplacestudio.nl');
 
   return (
@@ -36,6 +37,26 @@ export default function App() {
             📝 Content
           </button>
           <button
+            onClick={() => setActivePage('mentions')}
+            className={`w-full text-left px-4 py-2 rounded transition ${
+              activePage === 'mentions'
+                ? 'bg-primary text-primary-foreground'
+                : 'hover:bg-accent'
+            }`}
+          >
+            🎯 Mentions
+          </button>
+          <button
+            onClick={() => setActivePage('backlinks')}
+            className={`w-full text-left px-4 py-2 rounded transition ${
+              activePage === 'backlinks'
+                ? 'bg-primary text-primary-foreground'
+                : 'hover:bg-accent'
+            }`}
+          >
+            🔗 Backlinks
+          </button>
+          <button
             onClick={() => setActivePage('gsc')}
             className={`w-full text-left px-4 py-2 rounded transition ${
               activePage === 'gsc'
@@ -56,16 +77,6 @@ export default function App() {
             🎬 YouTube
           </button>
           <button
-            onClick={() => setActivePage('mentions')}
-            className={`w-full text-left px-4 py-2 rounded transition ${
-              activePage === 'mentions'
-                ? 'bg-primary text-primary-foreground'
-                : 'hover:bg-accent'
-            }`}
-          >
-            🎯 Mentions
-          </button>
-          <button
             onClick={() => setActivePage('traffic')}
             className={`w-full text-left px-4 py-2 rounded transition ${
               activePage === 'traffic'
@@ -73,30 +84,21 @@ export default function App() {
                 : 'hover:bg-accent'
             }`}
           >
-            🌐 Google & Traffic
-          </button>
-          <button
-            onClick={() => setActivePage('backlinks')}
-            className={`w-full text-left px-4 py-2 rounded transition ${
-              activePage === 'backlinks'
-                ? 'bg-primary text-primary-foreground'
-                : 'hover:bg-accent'
-            }`}
-          >
-            🔗 Backlinks
+            🌐 Traffic
           </button>
         </nav>
       </aside>
 
       {/* Main Content */}
       <main className="ml-64 flex-1">
+        {activePage === 'mentions' && <MentionBuilder />}
         {activePage === 'backlinks' && <BacklinkManager />}
         
         {activePage === 'content' && (
           <div className="p-8">
             <h2 className="text-3xl font-bold mb-4">Content Creator</h2>
             <div className="card">
-              <p>Content Creator API integration coming soon...</p>
+              <p>Content Creator integration coming soon...</p>
             </div>
           </div>
         )}
@@ -119,18 +121,9 @@ export default function App() {
           </div>
         )}
 
-        {activePage === 'mentions' && (
-          <div className="p-8">
-            <h2 className="text-3xl font-bold mb-4">MentionBuilder</h2>
-            <div className="card">
-              <p>MentionBuilder integration coming soon...</p>
-            </div>
-          </div>
-        )}
-
         {activePage === 'traffic' && (
           <div className="p-8">
-            <h2 className="text-3xl font-bold mb-4">Traffic Generation (SVB 3.0)</h2>
+            <h2 className="text-3xl font-bold mb-4">Traffic Generation</h2>
             <div className="card">
               <p>Traffic generation coming soon...</p>
             </div>
